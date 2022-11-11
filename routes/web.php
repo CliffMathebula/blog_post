@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\BlogActionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [BlogActionController::class, 'index'])->name('welcome');
+
+Route::get('/create_blog', [BlogActionController::class, 'showCreate'])->name('create_blog');
+
+
+Route::get('/posts_all', function () {
+    return view('posts_all');
 });
+
+
+Route::get('/posts', [BlogActionController::class, 'show'])->name('posts');
+
+Route::post('/add_blog', [BlogActionController::class, 'addBlog'])->name('add_blog');
 
 Route::middleware([
     'auth:sanctum',
